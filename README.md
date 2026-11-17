@@ -18,7 +18,9 @@ An open-source newsletter service you run on your own accounts. It covers signup
 
 Running this project still costs money. You pay Resend for sending, Vercel for the site, and a host for the backend. Per [Resend's pricing page](https://resend.com/pricing) on 2026-11-17, its free marketing plan covers 1,000 contacts and its free transactional plan covers 3,000 emails a month with a limit of 100 a day.
 
-**Open-source options exist, on other stacks.** [Listmonk](https://listmonk.app/) is written in Go and [Keila](https://www.keila.io/) in Elixir, both under AGPL v3. [Ghost](https://ghost.org/) is a full publishing platform on Node.js under MIT. This project is MIT licensed and built as a Next.js app, so a team that already ships Next.js on Vercel can read all of it and change it. The feature comparison is in [docs/reference-products.md](docs/reference-products.md).
+**Open-source newsletter tools already exist.** [Listmonk](https://listmonk.app/) is written in Go and [Keila](https://www.keila.io/) in Elixir, both under AGPL v3. [Ghost](https://ghost.org/) is a full publishing platform on Node.js under MIT. The closest match is [MailCheap](https://github.com/marclou/mailcheap), a Next.js newsletter app under AGPL v3 that stores its data in MongoDB and sends through Amazon SES, per its README.
+
+This project differs from MailCheap in three ways. It is MIT licensed. It sends through Resend. Apso generates its backend on Postgres from a schema file. It also plans an RSS-to-email digest, which MailCheap's README does not mention. The full comparison is in [docs/reference-products.md](docs/reference-products.md).
 
 **It is also a worked example of Apso.** Apso generates the backend from a schema file. [docs/build-log.md](docs/build-log.md) records where Apso, Resend and the UI SDK did the work and what stayed hand-written.
 

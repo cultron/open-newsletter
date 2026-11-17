@@ -37,11 +37,26 @@ Kit's help center describes two RSS modes. In digest mode it compiles several ne
 | Paid subscriptions | none listed | none listed | Yes, "without any additional transaction fees from Ghost" (pricing page) |
 | API | "Extensive API coverage for all features." (homepage) | API for contacts and campaigns (homepage) | Content API on all plans. Admin API and webhooks on Publisher and above (pricing page) |
 
+## Other open-source projects
+
+A second search on 2026-11-17 found more projects. Stars, license, language and last push come from each repo's GitHub metadata on that date. Feature notes come from each README.
+
+| Project | Stack | License | Stars | Last push | Notes |
+|---|---|---|---|---|---|
+| [MailCheap](https://github.com/marclou/mailcheap) | Next.js 16, MongoDB, Amazon SES | AGPL v3 | 1,706 | 2026-11-06 | Created 2026-10-10. Editor, a web page per issue, CSV imports from other platforms, confirmed opt-in on by default, one-click unsubscribe, a REST API, an MCP server and a Deploy with Vercel button. It also runs as a paid hosted service |
+| [Notifuse](https://github.com/Notifuse/notifuse) | Go | Custom (GitHub reports "other") | 2,289 | 2026-11-17 | Newsletter, email marketing and transactional email in one self-hosted platform, with a visual MJML editor |
+| [BillionMail](https://github.com/Billionmail/BillionMail) | Go | AGPL v3 | 16,404 | 2026-06-11 | Bundles its own mail server with newsletter and email marketing tools |
+| [Mautic](https://github.com/mautic/mautic) | PHP | Custom (GitHub reports "other") | 10,996 | 2026-11-17 | Marketing automation suite, broader than a newsletter tool |
+| [Mailtrain](https://github.com/Mailtrain-org/mailtrain) | JavaScript | GPL v3 | 5,751 | 2025-10-05 | Self-hosted newsletter app |
+| [OpenMailer](https://github.com/vincenius/openmailer) | Next.js, MongoDB | MIT | 79 | 2023-12-19 | Lists, double opt-in, open and click tracking. Its README says hosting on Vercel "does not work properly" because of long-running background tasks |
+
+MailCheap is the closest project to this one. It is newer, already built, and covers most of the MVP list above. Before building, the project owner should decide whether open-newsletter still earns its place. The differences we can point to are the MIT license, Resend as the sender, Postgres through an Apso-generated backend, and the RSS-to-email digest.
+
 ## What this means for the MVP
 
 - **Every product ships signup forms and some form of opt-in control.** Double opt-in is in the MVP and on by default.
 - **Tags, segments and CSV are standard.** Lists, tags, import and export are in the MVP. Saved segments wait for v1.
 - **A public archive is standard.** The MVP has public post pages with SEO metadata and its own RSS feed.
-- **RSS to email is a paid-plan feature on Beehiiv and Kit, and we found it in none of the three open-source products.** It is in the MVP because it is the project owner's own use case: `mattcullerton.com/rss.xml` becomes a weekly email.
+- **RSS to email is a paid-plan feature on Beehiiv and Kit, and we found it in none of Listmonk, Keila or Ghost. MailCheap's README does not mention it.** It is in the MVP because it is the project owner's own use case: `mattcullerton.com/rss.xml` becomes a weekly email.
 - **Open, click, bounce and complaint tracking is standard.** The MVP gets it from Resend webhooks.
 - **Referrals, recommendations and paid subscriptions sit on higher plans or in the hosted products only.** They are v1 issues.
