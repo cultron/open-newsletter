@@ -1,0 +1,783 @@
+{
+  "version": 2,
+  "language": "typescript",
+  "rootFolder": "src",
+  "entities": [
+    {
+      "name": "Publication",
+      "created_at": true,
+      "updated_at": true,
+      "fields": [
+        {
+          "name": "name",
+          "type": "text"
+        },
+        {
+          "name": "description",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "siteUrl",
+          "type": "text"
+        },
+        {
+          "name": "fromName",
+          "type": "text"
+        },
+        {
+          "name": "fromEmail",
+          "type": "text",
+          "is_email": true
+        },
+        {
+          "name": "replyToEmail",
+          "type": "text",
+          "is_email": true,
+          "nullable": true
+        },
+        {
+          "name": "physicalAddress",
+          "type": "text"
+        },
+        {
+          "name": "doubleOptIn",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "timezone",
+          "type": "text",
+          "default": "UTC"
+        }
+      ]
+    },
+    {
+      "name": "Subscriber",
+      "created_at": true,
+      "updated_at": true,
+      "fields": [
+        {
+          "name": "email",
+          "type": "text",
+          "is_email": true,
+          "unique": true
+        },
+        {
+          "name": "firstName",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "lastName",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "status",
+          "type": "enum",
+          "values": [
+            "Pending",
+            "Active",
+            "Unsubscribed",
+            "Bounced",
+            "Complained"
+          ],
+          "default": "Pending"
+        },
+        {
+          "name": "source",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "confirmToken",
+          "type": "text",
+          "nullable": true,
+          "unique": true
+        },
+        {
+          "name": "manageToken",
+          "type": "text",
+          "unique": true
+        },
+        {
+          "name": "confirmedAt",
+          "type": "timestamptz",
+          "nullable": true
+        },
+        {
+          "name": "unsubscribedAt",
+          "type": "timestamptz",
+          "nullable": true
+        },
+        {
+          "name": "consentIp",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "consentUserAgent",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "attributes",
+          "type": "json",
+          "nullable": true
+        },
+        {
+          "name": "resendContactId",
+          "type": "text",
+          "nullable": true
+        }
+      ]
+    },
+    {
+      "name": "List",
+      "created_at": true,
+      "updated_at": true,
+      "fields": [
+        {
+          "name": "name",
+          "type": "text"
+        },
+        {
+          "name": "slug",
+          "type": "text",
+          "unique": true
+        },
+        {
+          "name": "description",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "isPublic",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "isDefault",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "resendSegmentId",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "resendTopicId",
+          "type": "text",
+          "nullable": true
+        }
+      ]
+    },
+    {
+      "name": "Subscription",
+      "created_at": true,
+      "updated_at": true,
+      "uniques": [
+        {
+          "name": "uq_subscription_subscriber_list",
+          "fields": [
+            "subscriberId",
+            "listId"
+          ]
+        }
+      ],
+      "fields": [
+        {
+          "name": "status",
+          "type": "enum",
+          "values": [
+            "Subscribed",
+            "Unsubscribed"
+          ],
+          "default": "Subscribed"
+        },
+        {
+          "name": "unsubscribedAt",
+          "type": "timestamptz",
+          "nullable": true
+        }
+      ]
+    },
+    {
+      "name": "Tag",
+      "created_at": true,
+      "updated_at": true,
+      "fields": [
+        {
+          "name": "name",
+          "type": "text",
+          "unique": true
+        }
+      ]
+    },
+    {
+      "name": "Post",
+      "created_at": true,
+      "updated_at": true,
+      "fields": [
+        {
+          "name": "title",
+          "type": "text"
+        },
+        {
+          "name": "slug",
+          "type": "text",
+          "unique": true
+        },
+        {
+          "name": "excerpt",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "bodyMarkdown",
+          "type": "text"
+        },
+        {
+          "name": "bodyHtml",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "status",
+          "type": "enum",
+          "values": [
+            "Draft",
+            "Scheduled",
+            "Published"
+          ],
+          "default": "Draft"
+        },
+        {
+          "name": "showOnWeb",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "publishedAt",
+          "type": "timestamptz",
+          "nullable": true
+        },
+        {
+          "name": "seoTitle",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "seoDescription",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "coverImageUrl",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "canonicalUrl",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "origin",
+          "type": "enum",
+          "values": [
+            "Editor",
+            "Rss"
+          ],
+          "default": "Editor"
+        }
+      ]
+    },
+    {
+      "name": "Send",
+      "created_at": true,
+      "updated_at": true,
+      "fields": [
+        {
+          "name": "kind",
+          "type": "enum",
+          "values": [
+            "Broadcast",
+            "Digest",
+            "Test"
+          ],
+          "default": "Broadcast"
+        },
+        {
+          "name": "subject",
+          "type": "text"
+        },
+        {
+          "name": "previewText",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "status",
+          "type": "enum",
+          "values": [
+            "Draft",
+            "Scheduled",
+            "Sending",
+            "Sent",
+            "Canceled",
+            "Failed"
+          ],
+          "default": "Draft"
+        },
+        {
+          "name": "scheduledAt",
+          "type": "timestamptz",
+          "nullable": true
+        },
+        {
+          "name": "sentAt",
+          "type": "timestamptz",
+          "nullable": true
+        },
+        {
+          "name": "resendBroadcastId",
+          "type": "text",
+          "nullable": true,
+          "index": true
+        },
+        {
+          "name": "recipientCount",
+          "type": "integer",
+          "default": 0
+        },
+        {
+          "name": "deliveredCount",
+          "type": "integer",
+          "default": 0
+        },
+        {
+          "name": "openedCount",
+          "type": "integer",
+          "default": 0
+        },
+        {
+          "name": "clickedCount",
+          "type": "integer",
+          "default": 0
+        },
+        {
+          "name": "bouncedCount",
+          "type": "integer",
+          "default": 0
+        },
+        {
+          "name": "complainedCount",
+          "type": "integer",
+          "default": 0
+        },
+        {
+          "name": "unsubscribedCount",
+          "type": "integer",
+          "default": 0
+        },
+        {
+          "name": "error",
+          "type": "text",
+          "nullable": true
+        }
+      ]
+    },
+    {
+      "name": "EmailEvent",
+      "created_at": true,
+      "fields": [
+        {
+          "name": "type",
+          "type": "enum",
+          "values": [
+            "Sent",
+            "Delivered",
+            "DeliveryDelayed",
+            "Opened",
+            "Clicked",
+            "Bounced",
+            "Complained",
+            "Failed",
+            "Suppressed"
+          ]
+        },
+        {
+          "name": "webhookId",
+          "type": "text",
+          "unique": true
+        },
+        {
+          "name": "resendEmailId",
+          "type": "text",
+          "index": true
+        },
+        {
+          "name": "recipient",
+          "type": "text"
+        },
+        {
+          "name": "link",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "occurredAt",
+          "type": "timestamptz"
+        },
+        {
+          "name": "payload",
+          "type": "json",
+          "nullable": true
+        }
+      ]
+    },
+    {
+      "name": "Feed",
+      "created_at": true,
+      "updated_at": true,
+      "fields": [
+        {
+          "name": "url",
+          "type": "text",
+          "unique": true
+        },
+        {
+          "name": "title",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "mode",
+          "type": "enum",
+          "values": [
+            "Digest",
+            "PerItem"
+          ],
+          "default": "Digest"
+        },
+        {
+          "name": "cadence",
+          "type": "enum",
+          "values": [
+            "Daily",
+            "Weekly"
+          ],
+          "default": "Weekly"
+        },
+        {
+          "name": "sendWeekday",
+          "type": "integer",
+          "default": 2
+        },
+        {
+          "name": "sendHour",
+          "type": "integer",
+          "default": 14
+        },
+        {
+          "name": "subjectTemplate",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "isActive",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "lastCheckedAt",
+          "type": "timestamptz",
+          "nullable": true
+        },
+        {
+          "name": "lastSentAt",
+          "type": "timestamptz",
+          "nullable": true
+        }
+      ]
+    },
+    {
+      "name": "FeedItem",
+      "created_at": true,
+      "uniques": [
+        {
+          "name": "uq_feed_item_feed_guid",
+          "fields": [
+            "feedId",
+            "guid"
+          ]
+        }
+      ],
+      "fields": [
+        {
+          "name": "guid",
+          "type": "text"
+        },
+        {
+          "name": "title",
+          "type": "text"
+        },
+        {
+          "name": "url",
+          "type": "text"
+        },
+        {
+          "name": "summary",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "publishedAt",
+          "type": "timestamptz",
+          "nullable": true
+        }
+      ],
+      "updated_at": true
+    },
+    {
+      "name": "ImportJob",
+      "created_at": true,
+      "updated_at": true,
+      "fields": [
+        {
+          "name": "filename",
+          "type": "text"
+        },
+        {
+          "name": "status",
+          "type": "enum",
+          "values": [
+            "Pending",
+            "Running",
+            "Done",
+            "Failed"
+          ],
+          "default": "Pending"
+        },
+        {
+          "name": "consentNote",
+          "type": "text"
+        },
+        {
+          "name": "totalRows",
+          "type": "integer",
+          "default": 0
+        },
+        {
+          "name": "importedRows",
+          "type": "integer",
+          "default": 0
+        },
+        {
+          "name": "skippedRows",
+          "type": "integer",
+          "default": 0
+        },
+        {
+          "name": "errors",
+          "type": "json",
+          "nullable": true
+        }
+      ]
+    },
+    {
+      "name": "User",
+      "created_at": true,
+      "updated_at": true,
+      "fields": [
+        {
+          "name": "email",
+          "type": "text",
+          "is_email": true,
+          "unique": true
+        },
+        {
+          "name": "emailVerified",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "name",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "image",
+          "type": "text",
+          "nullable": true
+        }
+      ]
+    },
+    {
+      "name": "Session",
+      "created_at": true,
+      "updated_at": true,
+      "fields": [
+        {
+          "name": "token",
+          "type": "text",
+          "unique": true
+        },
+        {
+          "name": "expiresAt",
+          "type": "timestamptz"
+        },
+        {
+          "name": "ipAddress",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "userAgent",
+          "type": "text",
+          "nullable": true
+        }
+      ]
+    },
+    {
+      "name": "Account",
+      "created_at": true,
+      "updated_at": true,
+      "fields": [
+        {
+          "name": "providerId",
+          "type": "text"
+        },
+        {
+          "name": "providerAccountId",
+          "type": "text"
+        },
+        {
+          "name": "password",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "accessToken",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "refreshToken",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "accessTokenExpiresAt",
+          "type": "timestamptz",
+          "nullable": true
+        }
+      ]
+    },
+    {
+      "name": "VerificationToken",
+      "created_at": true,
+      "updated_at": true,
+      "fields": [
+        {
+          "name": "identifier",
+          "type": "text"
+        },
+        {
+          "name": "value",
+          "type": "text"
+        },
+        {
+          "name": "expiresAt",
+          "type": "timestamptz"
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "from": "Subscription",
+      "to": "Subscriber",
+      "type": "ManyToOne",
+      "cascadeDelete": true,
+      "index": true
+    },
+    {
+      "from": "Subscription",
+      "to": "List",
+      "type": "ManyToOne",
+      "cascadeDelete": true,
+      "index": true
+    },
+    {
+      "from": "Subscriber",
+      "to": "Tag",
+      "type": "ManyToMany"
+    },
+    {
+      "from": "Send",
+      "to": "Post",
+      "type": "ManyToOne",
+      "nullable": true,
+      "index": true
+    },
+    {
+      "from": "Send",
+      "to": "List",
+      "type": "ManyToOne",
+      "nullable": true,
+      "index": true
+    },
+    {
+      "from": "EmailEvent",
+      "to": "Send",
+      "type": "ManyToOne",
+      "nullable": true,
+      "index": true
+    },
+    {
+      "from": "EmailEvent",
+      "to": "Subscriber",
+      "type": "ManyToOne",
+      "nullable": true,
+      "index": true
+    },
+    {
+      "from": "Feed",
+      "to": "List",
+      "type": "ManyToOne",
+      "index": true
+    },
+    {
+      "from": "FeedItem",
+      "to": "Feed",
+      "type": "ManyToOne",
+      "cascadeDelete": true,
+      "index": true
+    },
+    {
+      "from": "FeedItem",
+      "to": "Send",
+      "type": "ManyToOne",
+      "nullable": true,
+      "index": true
+    },
+    {
+      "from": "Session",
+      "to": "User",
+      "type": "ManyToOne",
+      "cascadeDelete": true,
+      "index": true
+    },
+    {
+      "from": "Account",
+      "to": "User",
+      "type": "ManyToOne",
+      "cascadeDelete": true,
+      "index": true
+    }
+  ]
+}
